@@ -5,7 +5,7 @@ import 'package:flame/effects.dart';
 /// This is used to change the ball's image on collision.
 class SpriteChangeEffect extends ComponentEffect<SpriteComponent> {
   final Sprite sprite;
-  late final Sprite? _original;
+  late final Sprite _original;
 
   SpriteChangeEffect(this.sprite, EffectController controller)
       : super(controller);
@@ -14,17 +14,15 @@ class SpriteChangeEffect extends ComponentEffect<SpriteComponent> {
   Future<void> onMount() async {
     super.onMount();
 
-    if (target.sprite != null && target.sprite?.image != null) {
-      _original = Sprite(target.sprite!.image);
-    }
+    _original = Sprite(target.sprite!.image);
   }
 
   @override
   void apply(double progress) {
-    // since we don't apply anything progressively, there is only 0.0 and 1.0
-    // for us
+    // we only have two states 1.0 and 0.0
     // if you wanted to gradually change the sprite by applying a transparency,
-    // you could do this here
+    // you could do this here by taking everything between 1.0 and 0.0
+    // into account
     target.sprite = progress == 0.0 ? _original : sprite;
     super.apply(progress);
   }

@@ -19,7 +19,7 @@ import 'main.dart';
 /// and the user lost.
 class Ball extends SpriteComponent
     with HasGameRef<TestGame>, HasHitboxes, Collidable {
-  var collisionSprite;
+  late final Sprite collisionSprite;
 
   // X and Y velocities of the ball
   // with the initial values, the ball goes to the
@@ -27,11 +27,7 @@ class Ball extends SpriteComponent
   var velX = -2.8;
   var velY = -2.8;
 
-  VoidCallback gameOverCallback;
-
-  // This effect changes the balls sprite image to a red, scared face.
-  // It is applied to the ball whenever it collides with something.
-  late final SpriteChangeEffect spriteChangeEffect;
+  final VoidCallback gameOverCallback;
 
   Ball(VoidCallback gameOver)
       : this.gameOverCallback = gameOver,
@@ -40,9 +36,6 @@ class Ball extends SpriteComponent
   @override
   Future<void> onLoad() async {
     collisionSprite = await Sprite.load('ball_scared.png');
-
-    spriteChangeEffect = SpriteChangeEffect(
-        collisionSprite, EffectController(duration: 0.1, alternate: true));
 
     sprite = await Sprite.load('ball_happy.png');
     anchor = Anchor.center;
@@ -74,14 +67,8 @@ class Ball extends SpriteComponent
   @override
   void onCollision(Set<Vector2> points, Collidable other) {
     // only apply effect, if it is not already applied
-    if (!children.contains(spriteChangeEffect)) {
-      add(
-        SpriteChangeEffect(
-          collisionSprite,
-          EffectController(duration: 0.1, alternate: true),
-        ),
-      );
-    }
+    add(SpriteChangeEffect(
+        collisionSprite, EffectController(duration: 0.1, alternate: true)));
     if (collidedWithScreenOnAnySide(points, other)) {
       invertX();
     } else if (outOfScreen(points, other)) {
