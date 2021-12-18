@@ -13,48 +13,52 @@ import 'player_controlled_paddle.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final testGame = UnbeatablePong();
+  final pong = UnbeatablePong();
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) {
     runApp(
       GameWidget(
-        game: testGame,
+        game: pong,
         overlayBuilderMap: {
           'game_over': (context, game) {
-            return Center(
-              child: GestureDetector(
-                onTap: () {
-                  testGame.restartGame();
-                },
-                child: Container(
-                  width: 200,
-                  height: 200,
-                  color: Colors.red,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Game Over!',
-                        style: TextStyle(fontSize: 30.0),
-                      ),
-                      Expanded(
-                        child: Image.asset(
-                          'assets/images/retry_button.png',
-                          color: Colors.white,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            );
+            return gameOverOverlay(pong);
           },
         },
       ),
     );
   });
+}
+
+Widget gameOverOverlay(UnbeatablePong pong) {
+  return Center(
+    child: GestureDetector(
+      onTap: () {
+        pong.restartGame();
+      },
+      child: Container(
+        width: 200,
+        height: 200,
+        color: Colors.red,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              'Game Over!',
+              style: TextStyle(fontSize: 30.0),
+            ),
+            Expanded(
+              child: Image.asset(
+                'assets/images/retry_button.png',
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
+    ),
+  );
 }
 
 class UnbeatablePong extends FlameGame with HasCollidables, HasDraggables {
@@ -78,6 +82,7 @@ class UnbeatablePong extends FlameGame with HasCollidables, HasDraggables {
     add(ComputerControlledPaddle(ball));
     add(PlayerControlledPaddle());
     add(ball);
+
     if (overlays.isActive('game_over')) {
       overlays.remove('game_over');
       resumeEngine();
