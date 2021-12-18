@@ -18,7 +18,7 @@ import 'main.dart';
 /// If it hits the top or bottom side of the screen, it falls out of the map
 /// and the user lost.
 class Ball extends SpriteComponent
-    with HasGameRef<TestGame>, HasHitboxes, Collidable {
+    with HasGameRef<UnbeatablePong>, HasHitboxes, Collidable {
   late final Sprite collisionSprite;
 
   // X and Y velocities of the ball

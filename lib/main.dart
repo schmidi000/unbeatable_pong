@@ -13,7 +13,7 @@ import 'player_controlled_paddle.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final testGame = TestGame();
+  final testGame = UnbeatablePong();
 
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((value) {
@@ -57,7 +57,7 @@ Future<void> main() async {
   });
 }
 
-class TestGame extends FlameGame with HasCollidables, HasDraggables {
+class UnbeatablePong extends FlameGame with HasCollidables, HasDraggables {
   @override
   Future<void> onLoad() async {
     await super.onLoad();

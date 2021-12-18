@@ -7,7 +7,7 @@ import 'main.dart';
 
 /// Paddle that is controlled by the player by dragging.
 class PlayerControlledPaddle extends RectangleComponent
-    with HasGameRef<TestGame>, Collidable, Draggable {
+    with HasGameRef<UnbeatablePong>, Collidable, Draggable {
   PlayerControlledPaddle()
       : super(
           position: Vector2(0.0, 0.0),

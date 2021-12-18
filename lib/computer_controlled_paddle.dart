@@ -8,7 +8,7 @@ import 'main.dart';
 
 /// Paddle that is controlled by the computer.
 class ComputerControlledPaddle extends RectangleComponent
-    with HasGameRef<TestGame>, Collidable {
+    with HasGameRef<UnbeatablePong>, Collidable {
   Ball ball;
 
   ComputerControlledPaddle(Ball ball)
