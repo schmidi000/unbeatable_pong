@@ -66,9 +66,9 @@ class Ball extends SpriteComponent
 
   @override
   void onCollision(Set<Vector2> points, Collidable other) {
-    // only apply effect, if it is not already applied
     add(SpriteChangeEffect(
         collisionSprite, EffectController(duration: 0.1, alternate: true)));
+
     if (collidedWithScreenOnAnySide(points, other)) {
       invertX();
     } else if (outOfScreen(points, other)) {
