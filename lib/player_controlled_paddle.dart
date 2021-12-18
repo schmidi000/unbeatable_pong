@@ -1,9 +1,6 @@
-import 'dart:math';
-
 import 'package:flame/components.dart';
 import 'package:flame/extensions.dart';
 import 'package:flame/game.dart';
-import 'package:flame/geometry.dart';
 import 'package:flame/input.dart';
 
 import 'main.dart';
@@ -25,7 +22,6 @@ class PlayerControlledPaddle extends RectangleComponent
     position = Vector2.copy(gameRef.size)
       ..x /= 2
       ..y /= 1.08;
-    addHitbox(HitboxRectangle());
   }
 
   /// Updates the X coordinate of the paddle, whenever the user drags it.
