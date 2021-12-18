@@ -36,8 +36,8 @@ class Ball extends SpriteComponent
   @override
   Future<void> onLoad() async {
     collisionSprite = await Sprite.load('ball_scared.png');
-
     sprite = await Sprite.load('ball_happy.png');
+
     anchor = Anchor.center;
 
     final minX = 0.0 + size.x / 2;
